@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(xargs grep *)",
+      "Bash(pkill -f \"vite.*dev\")",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
