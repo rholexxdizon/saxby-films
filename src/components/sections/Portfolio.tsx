@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Clapperboard, Plane, Trophy, BookOpen, Film, Sparkles, Heart, Music } from 'lucide-react'
@@ -39,8 +39,20 @@ const tagIcons: Record<PortfolioTag, React.ComponentType<{ className?: string }>
 }
 
 const Portfolio = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const [ref, inView] = useInView({
-    threshold: 0.2,
+    threshold: isMobile ? 0.05 : 0.2,
+    triggerOnce: false,
   })
 
   const [selectedCategory, setSelectedCategory] = useState<PortfolioCategory>('all')

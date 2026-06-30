@@ -1,11 +1,24 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { useState, useEffect } from 'react'
 import TestimonialCard from '@components/ui/TestimonialCard'
 import type { Testimonial } from '../../types'
 
 const Testimonials = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const [ref, inView] = useInView({
-    threshold: 0.3,
+    threshold: isMobile ? 0.05 : 0.3,
+    triggerOnce: true,
   })
 
   // Real client testimonials

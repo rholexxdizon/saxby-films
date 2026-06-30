@@ -1,12 +1,25 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { useState, useEffect } from 'react'
 import ServiceCard from '@components/ui/ServiceCard'
 import MouseGlowEffect from '@components/ui/MouseGlowEffect'
 import { useCursorHover } from '@hooks/useCursorHover'
 
 const Services = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const [ref, inView] = useInView({
-    threshold: 0.3,
+    threshold: isMobile ? 0.05 : 0.3,
+    triggerOnce: true,
   })
 
   const scrollToContact = () => {
@@ -76,7 +89,7 @@ const Services = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.3,
+        delayChildren: isMobile ? 0.1 : 0.3,
       },
     },
   }
@@ -88,6 +101,7 @@ const Services = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: isMobile ? 0.4 : 0.6, delay: isMobile ? 0.1 : 0.2 }}
                     className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-4">

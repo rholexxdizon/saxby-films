@@ -3,22 +3,31 @@ import { useInView } from 'react-intersection-observer'
 import { Mail, Phone, MapPin, Instagram, Facebook, MessageCircle } from 'lucide-react'
 import ContactForm from '@components/ui/ContactForm'
 import { initializeEmailJS } from '@lib/email'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useCursorHover } from '@hooks/useCursorHover'
 
 const Contact = () => {
-  const [ref, inView] = useInView({
-    threshold: 0.3,
-  })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    initializeEmailJS()
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Cursor hover effects
   const instagramHover = useCursorHover({ text: 'Message' })
   const contactHover = useCursorHover({ text: 'Contact' })
   const socialHover = useCursorHover({ text: 'Follow' })
 
-  useEffect(() => {
-    initializeEmailJS()
-  }, [])
+  const [ref, inView] = useInView({
+    threshold: isMobile ? 0.05 : 0.3,
+    triggerOnce: true,
+  })
 
   const contactInfo = [
     {

@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import AccordionItem from '@components/ui/AccordionItem'
 import type { FAQ as FAQType } from '../../types'
 
 const FAQ = () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const [ref, inView] = useInView({
-    threshold: 0.3,
+    threshold: isMobile ? 0.05 : 0.3,
+    triggerOnce: true,
   })
 
   const [openIndex, setOpenIndex] = useState<number | null>(null)
