@@ -49,14 +49,13 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
   return (
     <motion.div
       variants={card}
-      whileHover={{ y: -8, transition: { duration: 0.2 } }}
+      whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
       className="cinematic-card rounded-2xl p-6 group"
     >
       {/* Icon */}
       <motion.div
-        whileHover={{ rotate: 360, scale: 1.1 }}
-        transition={{ duration: 0.6 }}
-        className="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors"
+        whileHover={{ rotate: 360, scale: 1.1, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } }}
+        className="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
       >
         <Icon className="w-7 h-7 text-accent" />
       </motion.div>

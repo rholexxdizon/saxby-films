@@ -1,4 +1,4 @@
-export type PortfolioTag = 'sde' | 'drone' | 'sports' | 'documentary' | 'bts' | 'highlights' | 'pre-wedding'
+export type PortfolioTag = 'sde' | 'drone' | 'sports' | 'documentary' | 'bts' | 'highlights' | 'pre-wedding' | 'music-video'
 
 export type PortfolioCategory = 'all' | 'photos' | 'videos' | 'weddings' | 'events' | 'corporate'
 
@@ -6,13 +6,15 @@ export interface PortfolioItem {
   id: string
   title: string
   category: PortfolioCategory
-  type: 'photo' | 'video'
+  type: 'photo' | 'video' | 'album'
   thumbnail: string
   embedUrl?: string
   description: string
   client?: string
   year?: number
   tags?: PortfolioTag[]
+  galleryImages?: string[]
+  videoUrl?: string
 }
 
 export interface Service {

@@ -122,7 +122,7 @@ const ContactForm = () => {
             value={formData.fullName}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+            className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors placeholder:text-tertiary"
             placeholder="John Doe"
           />
         </div>
@@ -139,7 +139,7 @@ const ContactForm = () => {
             value={formData.email}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+            className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors placeholder:text-tertiary"
             placeholder="john@example.com"
           />
         </div>
@@ -156,7 +156,7 @@ const ContactForm = () => {
             value={formData.phoneNumber}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+            className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors placeholder:text-tertiary"
             placeholder="+63 912 345 6789"
           />
         </div>
@@ -194,7 +194,7 @@ const ContactForm = () => {
               onChange={handleInputChange}
               required
               min={new Date().toISOString().split('T')[0]}
-              className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors placeholder:text-tertiary"
             />
           </div>
         </div>
@@ -227,7 +227,7 @@ const ContactForm = () => {
             onChange={handleInputChange}
             required
             rows={5}
-            className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors resize-none"
+            className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors resize-none placeholder:text-tertiary"
             placeholder="Tell us about your event, what you're looking for, and any specific requirements..."
           />
         </div>

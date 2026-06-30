@@ -6,7 +6,7 @@ import type { FAQ as FAQType } from '../../types'
 
 const FAQ = () => {
   const [ref, inView] = useInView({
-    threshold: 0.2,
+    threshold: 0.3,
   })
 
   const [openIndex, setOpenIndex] = useState<number | null>(null)

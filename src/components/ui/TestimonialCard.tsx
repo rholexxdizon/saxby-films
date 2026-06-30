@@ -28,7 +28,7 @@ const TestimonialCard = ({ testimonial, index }: TestimonialCardProps) => {
   return (
     <motion.div
       variants={card}
-      whileHover={{ y: -8 }}
+      whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
       className="cinematic-card rounded-2xl p-8 relative group"
     >
       {/* Quote Icon */}

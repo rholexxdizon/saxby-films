@@ -8,6 +8,8 @@ const Footer = () => {
 
   // Cursor hover effects
   const socialHover = useCursorHover({ text: 'Follow' })
+  const upArrowHover = useCursorHover({ text: 'Up' })
+  const bookNowHover = useCursorHover({ text: 'Book' })
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,20 +48,30 @@ const Footer = () => {
                     transition={{ delay: 0.2 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <button
+          <motion.button
             onClick={scrollToContact}
             className="px-8 py-4 gold-gradient text-white rounded-full font-medium"
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            onMouseEnter={bookNowHover.onMouseEnter}
+            onMouseLeave={bookNowHover.onMouseLeave}
           >
             Book Now
-          </button>
+          </motion.button>
           {showBackToTop && (
-            <button
+            <motion.button
               onClick={scrollToTop}
               className="px-8 py-4 border border-white/20 rounded-full font-medium hover:surface-hover transition-colors flex items-center gap-2"
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              onMouseEnter={upArrowHover.onMouseEnter}
+              onMouseLeave={upArrowHover.onMouseLeave}
             >
               <ArrowUp className="w-4 h-4" />
               Back to Top
-            </button>
+            </motion.button>
           )}
         </motion.div>
       </div>
@@ -81,26 +93,20 @@ const Footer = () => {
             <div>
               <h4 className="font-display font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#services" className="secondary hover:primary transition-colors">
-                    Services
-                  </a>
-                </li>
-                <li>
-                  <a href="#portfolio" className="secondary hover:primary transition-colors">
-                    Portfolio
-                  </a>
-                </li>
-                <li>
-                  <a href="#about" className="secondary hover:primary transition-colors">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" className="secondary hover:primary transition-colors">
-                    Contact
-                  </a>
-                </li>
+                {['Services', 'Portfolio', 'About', 'Contact'].map((link) => (
+                  <li key={link}>
+                    <motion.a
+                      href={`#${link.toLowerCase()}`}
+                      className="secondary hover:primary transition-colors inline-block px-2 py-1 rounded"
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                      {...socialHover}
+                    >
+                      {link}
+                    </motion.a>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -152,9 +158,12 @@ const Footer = () => {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
+          whileHover={{ y: -2 }}
+          transition={{ duration: 0.2 }}
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 p-4 gold-gradient text-white rounded-full shadow-lg z-50"
           aria-label="Back to top"
+          {...upArrowHover}
         >
           <ArrowUp className="w-6 h-6" />
         </motion.button>

@@ -8,11 +8,13 @@ import { useCursorHover } from '@hooks/useCursorHover'
 
 const Contact = () => {
   const [ref, inView] = useInView({
-    threshold: 0.2,
+    threshold: 0.3,
   })
 
   // Cursor hover effects
   const instagramHover = useCursorHover({ text: 'Message' })
+  const contactHover = useCursorHover({ text: 'Contact' })
+  const socialHover = useCursorHover({ text: 'Follow' })
 
   useEffect(() => {
     initializeEmailJS()
@@ -61,6 +63,7 @@ const Contact = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
                     className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-4">
@@ -77,7 +80,7 @@ const Contact = () => {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                         className="space-y-8"
           >
             {/* Contact Details */}
@@ -92,12 +95,13 @@ const Contact = () => {
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.3 + index * 0.1 }}
+                    transition={{ duration: 0.6, delay: 0.4 + index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
                                       >
                     {info.link ? (
                       <a
                         href={info.link}
                         className="cinematic-card flex items-start gap-4 p-4 rounded-xl group"
+                        {...contactHover}
                       >
                         <div className="p-3 bg-accent/20 rounded-lg group-hover:bg-accent/30 transition-colors">
                           <Icon className="w-5 h-5 text-accent" />
@@ -142,7 +146,8 @@ const Contact = () => {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={inView ? { opacity: 1, scale: 1 } : {}}
                       transition={{ delay: 0.6 + index * 0.1 }}
-                                            className="cinematic-card flex items-center gap-3 p-4 rounded-xl"
+                      className="cinematic-card flex items-center gap-3 p-4 rounded-xl"
+                      {...socialHover}
                     >
                       <Icon className="w-5 h-5 text-accent" />
                       <div>
@@ -163,7 +168,7 @@ const Contact = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.8 }}
+              transition={{ duration: 0.6, delay: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
                             className="cinematic-card p-6 rounded-xl"
             >
               <h4 className="font-display font-semibold mb-3">
@@ -189,7 +194,7 @@ const Contact = () => {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                       >
             <ContactForm />
           </motion.div>

@@ -5,51 +5,37 @@ import type { Testimonial } from '../../types'
 
 const Testimonials = () => {
   const [ref, inView] = useInView({
-    threshold: 0.2,
+    threshold: 0.3,
   })
 
-  // Placeholder testimonials (to be replaced with real client testimonials)
+  // Real client testimonials
   const testimonials: Testimonial[] = [
     {
       id: '1',
-      name: 'Sarah & Mike Johnson',
-      role: 'Wedding Clients',
-      content: 'Saxby Films captured our wedding day perfectly. Every moment was beautifully documented, and the final video exceeded our expectations. Highly recommended!',
+      name: 'Carren Aiseldrick Felipe',
+      role: 'January 31, 2026',
+      content: 'Simula pa lang ng pre-nup until the wedding wala akong ibang nasabi kundi "the BEST SAXBY TEAM" 10000000000/10. Ang ganda ng pre-nup pati SDE. Sobrang professional at gaan nila kawork. Parang tropa na nga namin sila simula pa lang nong pre-nup. Lol At yung outcome ng vids nila wala akong narinig sa visitors kundi ang galing ng photos and vids. Iyak, tawa, kaba, saya lahat ng emotions naipakita nila sa output. Sobrang sulit 💯 even yung mga raws nila grabe ang gaganda na. 🥰 sila pinaka the best supplier ko nong kasal ko. ♥️ sobrang thankful ako sa inyooo.',
       rating: 5,
     },
     {
       id: '2',
-      name: 'Emily Chen',
-      role: 'Debut Client',
-      content: 'Professional, creative, and incredibly talented. They turned my debut celebration into a stunning visual story that I will treasure forever.',
+      name: 'Ma-e Merca',
+      role: 'December 23, 2024',
+      content: 'Huy sax and team. Ang galing niyo. 🥹 From Prenup to My very big Day. As in. Irerecomend talaga Kita. Very Hands on kahit naulan na. 🥹Appreciate ko talaga lahat ng effort sa Kasal namin. Kukunin namin kayo ulit very soon. ❤️',
       rating: 5,
     },
     {
       id: '3',
-      name: 'David Rodriguez',
-      role: 'Corporate Event',
-      content: 'Exceptional work on our company anniversary event. The team was professional, and the final photos and videos were outstanding.',
+      name: 'Gibo Palmeras',
+      role: 'May 23, 2024',
+      content: 'Lakas mambudol nito. Pero super ganda ng kinalabasan. Alang masabe from Prenup, SDE and Photos! Ika nga ng mga friends ko, lakas makasosyal ng Prenup, at SDE, very me! 😂😂',
       rating: 5,
     },
     {
       id: '4',
-      name: 'Jessica & Tom Williams',
-      role: 'Pre-Wedding Clients',
-      content: 'Our pre-wedding session was an amazing experience. They made us feel comfortable, and the photos turned out absolutely stunning!',
-      rating: 5,
-    },
-    {
-      id: '5',
-      name: 'Amanda Foster',
-      role: 'Event Photography',
-      content: 'Captured all the special moments of our charity event beautifully. The photos tell the story of our event perfectly.',
-      rating: 5,
-    },
-    {
-      id: '6',
-      name: 'Robert & Linda Martinez',
-      role: 'Wedding Clients',
-      content: 'From our first meeting to the final delivery, the experience was wonderful. The wedding video is something we will watch for years to come.',
+      name: 'Mica Gapate Miranda',
+      role: 'April 27, 2021',
+      content: 'Very recommended, Budget friendly and madaling kausap. ☺️',
       rating: 5,
     },
   ]

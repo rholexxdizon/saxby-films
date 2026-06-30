@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import ThemeToggle from '../ui/ThemeToggle'
-import logo from '../../assets/saxby-films-logo-2.jpg'
+import logo from '../../assets/branding/logo/saxby-films-logo-2.jpg'
 import { useCursorHover } from '@hooks/useCursorHover'
 
 interface NavigationProps {
@@ -85,7 +84,6 @@ const Navigation = ({ onOpenChatbot }: NavigationProps = {}) => {
                 {item.name}
               </a>
             ))}
-            <ThemeToggle />
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
@@ -99,7 +97,6 @@ const Navigation = ({ onOpenChatbot }: NavigationProps = {}) => {
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-4">
-            <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2"

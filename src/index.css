@@ -798,3 +798,76 @@ html {
     transition: all 0.3s ease;
   }
 }
+
+/* Typing Animation Effect */
+.typing-wrapper {
+  color: #d4af37;
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 60px;
+  background: #d4af37;
+  margin-left: 6px;
+  animation: smoothBlink 1.2s infinite;
+  vertical-align: middle;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+}
+
+@media (min-width: 768px) {
+  .cursor {
+    height: 100px;
+    width: 4px;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
+  }
+}
+
+@keyframes smoothBlink {
+  0%, 100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scaleY(0.8);
+  }
+}
+
+/* Typewriter Text Component */
+.typewriter-text-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.typewriter-text {
+  background: linear-gradient(90deg, #d4af37, #e8c547, #f4d03f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: #d4af37;
+  margin-left: 2px;
+  animation: typewriterBlink 0.8s infinite;
+  vertical-align: text-bottom;
+  flex-shrink: 0;
+}
+
+@keyframes typewriterBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Enhanced multi-line typewriter support */
+.typewriter-text {
+  white-space: pre-wrap;
+  line-height: 1.3;
+}

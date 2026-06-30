@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Play, Image as ImageIcon } from 'lucide-react'
 import type { PortfolioItem } from '../../types'
-import { useCursorHover } from '@hooks/useCursorHover'
 
 interface PortfolioCardProps {
   item: PortfolioItem
@@ -11,10 +10,6 @@ interface PortfolioCardProps {
 
 const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
   const [showEmbed, setShowEmbed] = useState(false)
-
-  // Cursor hover effect based on item type
-  const hoverText = item.type === 'video' ? 'Play' : 'View'
-  const cursorHover = useCursorHover({ text: hoverText })
 
   const card = {
     hidden: { opacity: 0, y: 20 },
@@ -37,11 +32,9 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
   return (
     <motion.div
       variants={card}
-      whileHover={{ y: -8 }}
+      whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
       className="cinematic-card rounded-2xl overflow-hidden group"
       onClick={handleCardClick}
-      onMouseEnter={cursorHover.onMouseEnter}
-      onMouseLeave={cursorHover.onMouseLeave}
     >
       {/* Thumbnail / Video Container */}
       <div className="relative aspect-[4/3] overflow-hidden surface-secondary" data-video-wrapper="true">
@@ -52,7 +45,7 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
               src={item.thumbnail}
               alt={item.title}
               loading="lazy"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-[cubic-bezier(0.4,0,0.2,1)]"
             />
 
             {/* Type Badge */}
@@ -64,11 +57,13 @@ const PortfolioCard = ({ item, index }: PortfolioCardProps) => {
             {item.type === 'video' && (
               <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/30 transition-colors">
                 <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center"
+                  whileHover={{ scale: 1.1, transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] } }}
+                  whileTap={{ scale: 0.9, transition: { duration: 0.15 } }}
+                  className="relative w-16 h-16 rounded-full gold-gradient flex items-center justify-center shadow-lg shadow-amber-600/30 hover:shadow-xl hover:shadow-amber-600/40"
                 >
-                  <Play className="w-8 h-8 text-dark-background ml-1" fill="currentColor" />
+                  <Play className="w-7 h-7 text-white ml-1" fill="currentColor" />
+                  {/* Gold glow effect */}
+                  <div className="absolute inset-0 rounded-full bg-amber-500/20 blur-xl" />
                 </motion.div>
               </div>
             )}

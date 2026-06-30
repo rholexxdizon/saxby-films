@@ -6,7 +6,7 @@ import { useCursorHover } from '@hooks/useCursorHover'
 
 const Services = () => {
   const [ref, inView] = useInView({
-    threshold: 0.2,
+    threshold: 0.3,
   })
 
   const scrollToContact = () => {

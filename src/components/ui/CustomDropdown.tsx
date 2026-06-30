@@ -54,7 +54,7 @@ const CustomDropdown = ({
         whileTap={{ scale: 0.98 }}
         {...dropdownHover}
       >
-        <span className={value ? 'text-primary' : 'text-secondary'}>
+        <span className={value ? 'text-primary' : 'text-tertiary'}>
           {value || placeholder}
         </span>
         <motion.div

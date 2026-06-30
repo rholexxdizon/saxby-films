@@ -4,7 +4,7 @@ import MasonryGallery from '@components/ui/MasonryGallery'
 
 const About = () => {
   const [ref, inView] = useInView({
-    threshold: 0.1,
+    threshold: 0.2,
   })
 
   return (
@@ -15,7 +15,7 @@ const About = () => {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
                       >
             <h2 className="text-4xl md:text-6xl font-display font-bold mb-8">
               Our Story
@@ -46,7 +46,7 @@ const About = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                             className="grid grid-cols-3 gap-6 mt-12"
             >
               <div className="text-center">
@@ -74,7 +74,7 @@ const About = () => {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
                       >
             <MasonryGallery />
           </motion.div>

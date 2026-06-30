@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCursor } from '../../contexts/CursorContext'
 
@@ -13,6 +13,8 @@ const CustomCursor = () => {
     prefersReducedMotion,
     isDesktop,
   } = useCursor()
+
+  const [isOverVideo, setIsOverVideo] = useState(false)
 
   // Programmatic cursor hiding enforcement
   useEffect(() => {
@@ -31,16 +33,6 @@ const CustomCursor = () => {
         /* Allow default cursor in native elements that don't support custom cursors */
         select:hover, option:hover, select:focus { cursor: default !important; }
         select, option { cursor: default !important; }
-        video:hover, video:focus { cursor: default !important; }
-        video { cursor: default !important; }
-        iframe:hover, iframe:focus { cursor: default !important; }
-        iframe { cursor: default !important; }
-
-        /* Video container specific handling */
-        .video-container:hover, .video-container:focus { cursor: default !important; }
-        .video-container { cursor: default !important; }
-        [data-video-wrapper]:hover { cursor: default !important; }
-        [data-video-wrapper] { cursor: default !important; }
       `
       document.head.appendChild(style)
 
@@ -52,8 +44,29 @@ const CustomCursor = () => {
     }
   }, [hasFinePointer, isDesktop, isActive])
 
-  // Don't render if mobile/tablet or reduced motion
-  if (!hasFinePointer || prefersReducedMotion || !isActive || !isDesktop) {
+  // Detect video thumbnail/iframe hover to show/hide custom cursor
+  useEffect(() => {
+    if (!hasFinePointer || !isDesktop || !isActive) return
+
+    const handleVideoHover = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      // Hide cursor only when hovering directly on iframes (embedded videos)
+      const shouldHideCursor = target.tagName === 'IFRAME'
+
+      setIsOverVideo(shouldHideCursor)
+    }
+
+    document.addEventListener('mouseover', handleVideoHover)
+    document.addEventListener('mouseout', handleVideoHover)
+
+    return () => {
+      document.removeEventListener('mouseover', handleVideoHover)
+      document.removeEventListener('mouseout', handleVideoHover)
+    }
+  }, [hasFinePointer, isDesktop, isActive])
+
+  // Don't render if mobile/tablet or reduced motion, or when NOT over video thumbnail
+  if (!hasFinePointer || prefersReducedMotion || !isActive || !isDesktop || isOverVideo) {
     return null
   }
 

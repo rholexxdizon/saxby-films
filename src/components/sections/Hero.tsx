@@ -1,10 +1,60 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-import logo from '../../assets/saxby-films-logo-2.jpg'
-import backgroundImage from '../../assets/saxby-films-wedding-bg.jpg'
+import logo from '../../assets/branding/logo/saxby-films-logo-2.jpg'
+import backgroundImage from '../../assets/branding/backgrounds/saxby-films-wedding-bg.jpg'
 import { useCursorHover } from '@hooks/useCursorHover'
+import { useState, useEffect } from 'react'
 
 const Hero = () => {
+  const [typedText, setTypedText] = useState('')
+  const [showCursor, setShowCursor] = useState(true)
+  const fullText = "Every Moment Has A Story\nWorth Remembering"
+
+  // Typing animation effect
+  useEffect(() => {
+    let index = 0
+    let isDeleting = false
+    const typingSpeed = 100 // milliseconds per character
+    const deletingSpeed = 50 // milliseconds per character when deleting
+    const pauseTime = 2000 // pause before deleting
+
+    const typeLoop = () => {
+      if (!isDeleting && index < fullText.length) {
+        // Typing
+        setTypedText(fullText.slice(0, index + 1))
+        index++
+        setTimeout(typeLoop, typingSpeed + Math.random() * 50) // Add variation for natural typing
+      } else if (isDeleting && index > 0) {
+        // Deleting
+        setTypedText(fullText.slice(0, index - 1))
+        index--
+        setTimeout(typeLoop, deletingSpeed)
+      } else {
+        // Switch between typing and deleting
+        isDeleting = !isDeleting
+        if (isDeleting) {
+          // Just finished typing, pause before deleting
+          setTimeout(typeLoop, pauseTime)
+        } else {
+          // Just finished deleting, start typing immediately
+          setTimeout(typeLoop, 100)
+        }
+      }
+    }
+
+    // Start typing after a short delay
+    const startDelay = setTimeout(typeLoop, 500)
+
+    // Blinking cursor effect
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev)
+    }, 500)
+
+    return () => {
+      clearTimeout(startDelay)
+      clearInterval(cursorInterval)
+    }
+  }, [])
 
   const scrollToContact = () => {
     const element = document.querySelector('#contact')
@@ -42,7 +92,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-8"
         >
           <img
@@ -53,20 +103,33 @@ const Hero = () => {
         </motion.div>
 
         {/* Title */}
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-5xl md:text-[100px] font-display font-bold mb-6 leading-tight"
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center"
         >
-          Every Moment Has A Story<br />Worth Remembering
-        </motion.h1>
+          <div className="text-4xl md:text-7xl font-display font-bold mb-6 leading-tight min-h-[140px] md:min-h-[180px] max-w-6xl mx-auto">
+            {typedText.split('\n').map((line, lineIndex) => (
+              <div key={lineIndex} className="flex items-center justify-center">
+                <span className="typing-wrapper">{line}</span>
+                {lineIndex === typedText.split('\n').length - 1 && (
+                  <motion.span
+                    animate={{ opacity: showCursor ? 1 : 0 }}
+                    transition={{ duration: 0.1 }}
+                    className="cursor"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-lg md:text-xl secondary max-w-2xl mx-auto mb-12"
         >
           Saxby Films captures real-life moments and transforms them into
@@ -77,7 +140,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
+          transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <button
@@ -103,7 +166,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
+          transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           className="mt-12"
         >
           <a
@@ -122,7 +185,7 @@ const Hero = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1.2 }}
+        transition={{ duration: 0.5, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <motion.div

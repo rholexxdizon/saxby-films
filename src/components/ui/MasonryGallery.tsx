@@ -13,42 +13,42 @@ const MasonryGallery = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Placeholder images (to be replaced with real portfolio images)
+  // Real branding images from assets/branding/about folder
   const images = [
     {
       id: 1,
-      src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600',
-      alt: 'Wedding moment',
+      src: new URL('../../assets/branding/about/image-1.jpg', import.meta.url).href,
+      alt: 'Saxby Films Team',
       height: 'h-64',
     },
     {
       id: 2,
-      src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600',
-      alt: 'Wedding ceremony',
+      src: new URL('../../assets/branding/about/image-2.jpg', import.meta.url).href,
+      alt: 'Behind the Scenes',
       height: 'h-80',
     },
     {
       id: 3,
-      src: 'https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=600',
-      alt: 'Groom and bride',
+      src: new URL('../../assets/branding/about/image-3.jpg', import.meta.url).href,
+      alt: 'Filming in Action',
       height: 'h-64',
     },
     {
       id: 4,
-      src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600',
-      alt: 'Wedding details',
+      src: new URL('../../assets/branding/about/image-4.jpg', import.meta.url).href,
+      alt: 'Team Collaboration',
       height: 'h-96',
     },
     {
       id: 5,
-      src: 'https://images.unsplash.com/photo-1529636798458-92182e662485?w=600',
-      alt: 'Couple portrait',
+      src: new URL('../../assets/branding/about/image-5.jpg', import.meta.url).href,
+      alt: 'Creative Process',
       height: 'h-64',
     },
     {
       id: 6,
-      src: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600',
-      alt: 'Bride',
+      src: new URL('../../assets/branding/about/image-6.jpg', import.meta.url).href,
+      alt: 'Our Journey',
       height: 'h-72',
     },
   ]
