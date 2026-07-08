@@ -100,62 +100,85 @@ const About = () => {
           </motion.div>
         </div>
 
-        {/* Our Story Section */}
+        {/* Our Story Section with Enhanced Effects */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.15 : 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mb-16"
+          className="mb-16 relative"
         >
+          {/* Background decorative element */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 0.03, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="absolute inset-0 bg-gradient-to-br from-accent via-accent/50 to-transparent rounded-3xl blur-3xl"
+          />
+
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.2 : 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            className="relative"
           >
-            <h3 className="text-3xl md:text-4xl font-display font-bold mb-8">
+            {/* Enhanced title with gradient effect */}
+            <motion.h3
+              initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+              animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 20, filter: 'blur(10px)' }}
+              transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              className="text-3xl md:text-5xl font-display font-bold mb-8 bg-gradient-to-r from-accent via-accent/80 to-accent bg-clip-text text-transparent"
+            >
               Our Story
-            </h3>
+            </motion.h3>
 
-            <div className="space-y-6 text-lg text-secondary leading-relaxed">
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.5 }}
+            <div className="space-y-8 text-lg md:text-xl text-secondary leading-relaxed">
+              <motion.div
+                initial={{ opacity: 0, x: -50, filter: 'blur(8px)' }}
+                animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : { opacity: 0, x: -50, filter: 'blur(8px)' }}
+                transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                className="relative"
               >
-                Saxby Films began in 2017 with nothing more than a dream.
+                <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-accent to-transparent" />
+                <p className="pl-6">
+                  Saxby Films began in 2017 with nothing more than a dream.
+                </p>
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0, x: -50, filter: 'blur(8px)' }}
+                animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : { opacity: 0, x: -50, filter: 'blur(8px)' }}
+                transition={{ duration: 0.8, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+                className="relative"
+              >
+                <span className="text-accent font-semibold">It started with a young boy</span> who simply wanted to become a filmmaker. Armed with passion, curiosity, and a camera, I set out to tell stories that matter—stories that make people smile, laugh, cry, and remember.
               </motion.p>
 
               <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.6 }}
+                initial={{ opacity: 0, x: -50, filter: 'blur(8px)' }}
+                animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : { opacity: 0, x: -50, filter: 'blur(8px)' }}
+                transition={{ duration: 0.8, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                It started with a young boy who simply wanted to become a filmmaker. Armed with passion, curiosity, and a camera, I set out to tell stories that matter—stories that make people smile, laugh, cry, and remember.
+                What began as a dream slowly grew into a studio built on purpose. <span className="text-accent font-medium">Every couple, every family, and every client</span> who trusted us became part of that journey.
               </motion.p>
 
               <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.7 }}
+                initial={{ opacity: 0, x: -50, filter: 'blur(8px)' }}
+                animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : { opacity: 0, x: -50, filter: 'blur(8px)' }}
+                transition={{ duration: 0.8, delay: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                What began as a dream slowly grew into a studio built on purpose. Every couple, every family, and every client who trusted us became part of that journey.
+                Today, Saxby Films continues to create honest, cinematic, and emotionally driven films. While our equipment, experience, and team have grown over the years, <span className="text-accent font-semibold">one thing has never changed: our passion for telling real stories with heart.</span>
               </motion.p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.8 }}
+              <motion.div
+                initial={{ opacity: 0, x: -50, filter: 'blur(8px)' }}
+                animate={inView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : { opacity: 0, x: -50, filter: 'blur(8px)' }}
+                transition={{ duration: 0.8, delay: 1.0, ease: [0.25, 0.1, 0.25, 1] }}
+                className="relative bg-saxby-accent/5 rounded-2xl p-6 border-l-4 border-accent"
               >
-                Today, Saxby Films continues to create honest, cinematic, and emotionally driven films. While our equipment, experience, and team have grown over the years, one thing has never changed: our passion for telling real stories with heart.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.9 }}
-              >
-                Because at the end of the day, films aren't just about beautiful shots—they're about preserving moments that become memories, and memories that become part of your legacy.
-              </motion.p>
+                <p className="text-lg md:text-xl font-medium text-primary">
+                  Because at the end of the day, films aren't just about beautiful shots—they're about <span className="text-accent">preserving moments that become memories, and memories that become part of your legacy.</span>
+                </p>
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>
