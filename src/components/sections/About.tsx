@@ -111,7 +111,6 @@ const About = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.2 : 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            className="max-w-3xl mx-auto"
           >
             <h3 className="text-3xl md:text-4xl font-display font-bold mb-8">
               Our Story
