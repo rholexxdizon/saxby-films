@@ -65,9 +65,11 @@ function App() {
               <FAQ />
               <Contact />
             </main>
-            <Footer
+            <div
               className={`transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'lg:translate-x-0 translate-x-72' : ''} ${isMobileMenuOpen ? 'pointer-events-none' : ''}`}
-            />
+            >
+              <Footer />
+            </div>
             <Chatbot />
           </div>
         </CursorProvider>

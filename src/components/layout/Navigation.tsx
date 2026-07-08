@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
 import logo from '../../assets/branding/logo/saxby-films-logo-2.jpg'
 import { useCursorHover } from '@hooks/useCursorHover'
 
