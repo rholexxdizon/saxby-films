@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useState, useEffect } from 'react'
 import MasonryGallery from '@components/ui/MasonryGallery'
-import StoryGallery from '@components/ui/StoryGallery'
 
 const About = () => {
   const [isMobile, setIsMobile] = useState(false)
@@ -72,13 +71,13 @@ const About = () => {
             >
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-display font-bold text-accent mb-1">
-                  500+
+                  200+
                 </div>
                 <div className="text-sm text-secondary">Films Created</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-display font-bold text-accent mb-1">
-                  400+
+                  150+
                 </div>
                 <div className="text-sm text-secondary">Happy Clients</div>
               </div>
@@ -108,69 +107,58 @@ const About = () => {
           transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.15 : 0.35, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-16"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Story Text */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.2 : 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              <h3 className="text-3xl md:text-4xl font-display font-bold mb-8">
-                Our Story
-              </h3>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.2 : 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            className="max-w-3xl mx-auto"
+          >
+            <h3 className="text-3xl md:text-4xl font-display font-bold mb-8">
+              Our Story
+            </h3>
 
-              <div className="space-y-6 text-lg text-secondary leading-relaxed">
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
-                  Saxby Films began in 2017 with nothing more than a dream.
-                </motion.p>
+            <div className="space-y-6 text-lg text-secondary leading-relaxed">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                Saxby Films began in 2017 with nothing more than a dream.
+              </motion.p>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
-                  It started with a young boy who simply wanted to become a filmmaker. Armed with passion, curiosity, and a camera, I set out to tell stories that matter—stories that make people smile, laugh, cry, and remember.
-                </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                It started with a young boy who simply wanted to become a filmmaker. Armed with passion, curiosity, and a camera, I set out to tell stories that matter—stories that make people smile, laugh, cry, and remember.
+              </motion.p>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                  What began as a dream slowly grew into a studio built on purpose. Every couple, every family, and every client who trusted us became part of that journey.
-                </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
+                What began as a dream slowly grew into a studio built on purpose. Every couple, every family, and every client who trusted us became part of that journey.
+              </motion.p>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.8 }}
-                >
-                  Today, Saxby Films continues to create honest, cinematic, and emotionally driven films. While our equipment, experience, and team have grown over the years, one thing has never changed: our passion for telling real stories with heart.
-                </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                Today, Saxby Films continues to create honest, cinematic, and emotionally driven films. While our equipment, experience, and team have grown over the years, one thing has never changed: our passion for telling real stories with heart.
+              </motion.p>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.9 }}
-                >
-                  Because at the end of the day, films aren't just about beautiful shots—they're about preserving moments that become memories, and memories that become part of your legacy.
-                </motion.p>
-              </div>
-            </motion.div>
-
-            {/* Story Gallery */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.25 : 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              <StoryGallery />
-            </motion.div>
-          </div>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.9 }}
+              >
+                Because at the end of the day, films aren't just about beautiful shots—they're about preserving moments that become memories, and memories that become part of your legacy.
+              </motion.p>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Meet Your Filmmaker Section with Enhanced Animation */}

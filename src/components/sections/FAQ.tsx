@@ -38,12 +38,12 @@ const FAQ = () => {
     {
       id: 'photo-delivery',
       question: 'How long before photos are delivered?',
-      answer: 'Photo delivery time varies by event type. For weddings and pre-wedding sessions, photos are typically delivered within 4-8 weeks. For smaller events and corporate functions, delivery is usually within 2-4 weeks. We provide sneak peeks within 1 week for most events.',
+      answer: 'Photo delivery time varies by event type. For weddings and pre-wedding sessions, photos are typically delivered within 4-8 weeks.',
     },
     {
       id: 'video-delivery',
       question: 'How long before videos are delivered?',
-      answer: 'Video editing and post-production require careful attention. Wedding films and Same Day Edits have different timelines — SDEs are delivered at the event, while full wedding films typically take 8-12 weeks. Shorter event videos are usually delivered within 4-6 weeks.',
+      answer: 'Video editing and post-production require careful attention. Wedding films (non-sde) and Same Day Edits have different timelines — SDEs are delivered at the event, non sde videos typically delivered within 4-8 weeks after the event.',
     },
     {
       id: 'customization',

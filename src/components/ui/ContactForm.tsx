@@ -274,15 +274,13 @@ const ContactForm = () => {
               if (errors.length > 0) setErrors([])
             }}
             options={[
+              'Wedding Photo and Video',
               'Wedding Photography',
               'Wedding Videography',
               'Pre-Wedding Session',
               'Debut Coverage',
-              'Event Photography',
-              'Event Videography',
-              'Corporate Event',
-              'Drone Coverage',
-              'Other',
+              'Birthday Coverage',
+              'Event Coverage',
             ]}
             placeholder="Select event type"
             className="mb-6"

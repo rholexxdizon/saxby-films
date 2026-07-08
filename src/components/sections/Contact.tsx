@@ -45,7 +45,7 @@ const Contact = () => {
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Metro Manila, Philippines',
+      value: 'Cavite, Philippines',
       link: null,
     },
   ]
@@ -184,17 +184,17 @@ const Contact = () => {
                 Prefer to chat?
               </h4>
               <p className="secondary text-sm mb-4">
-                Connect with us on Instagram for quick inquiries and updates.
+                Connect with us on Facebook for quick inquiries and updates.
               </p>
               <a
-                href="https://www.instagram.com/saxbyfilms"
+                href="https://www.facebook.com/SaxbyFilms/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 gold-gradient text-white rounded-full font-medium"
                 {...instagramHover}
               >
                 <MessageCircle className="w-4 h-4" />
-                Message on Instagram
+                Message on Facebook
               </a>
             </motion.div>
           </motion.div>
