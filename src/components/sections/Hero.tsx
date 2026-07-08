@@ -3,58 +3,30 @@ import { ArrowRight } from 'lucide-react'
 import logo from '../../assets/branding/logo/saxby-films-logo-2.jpg'
 import backgroundImage from '../../assets/branding/backgrounds/saxby-films-wedding-bg.jpg'
 import { useCursorHover } from '@hooks/useCursorHover'
+import { useInView } from 'react-intersection-observer'
 import { useState, useEffect } from 'react'
 
 const Hero = () => {
-  const [typedText, setTypedText] = useState('')
-  const [showCursor, setShowCursor] = useState(true)
-  const fullText = "Every Moment Has A Story\nWorth Remembering"
+  const [isMobile, setIsMobile] = useState(false)
 
-  // Typing animation effect
   useEffect(() => {
-    let index = 0
-    let isDeleting = false
-    const typingSpeed = 100 // milliseconds per character
-    const deletingSpeed = 50 // milliseconds per character when deleting
-    const pauseTime = 2000 // pause before deleting
-
-    const typeLoop = () => {
-      if (!isDeleting && index < fullText.length) {
-        // Typing
-        setTypedText(fullText.slice(0, index + 1))
-        index++
-        setTimeout(typeLoop, typingSpeed + Math.random() * 50) // Add variation for natural typing
-      } else if (isDeleting && index > 0) {
-        // Deleting
-        setTypedText(fullText.slice(0, index - 1))
-        index--
-        setTimeout(typeLoop, deletingSpeed)
-      } else {
-        // Switch between typing and deleting
-        isDeleting = !isDeleting
-        if (isDeleting) {
-          // Just finished typing, pause before deleting
-          setTimeout(typeLoop, pauseTime)
-        } else {
-          // Just finished deleting, start typing immediately
-          setTimeout(typeLoop, 100)
-        }
-      }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
     }
-
-    // Start typing after a short delay
-    const startDelay = setTimeout(typeLoop, 500)
-
-    // Blinking cursor effect
-    const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev)
-    }, 500)
-
-    return () => {
-      clearTimeout(startDelay)
-      clearInterval(cursorInterval)
-    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  const [ref, inView] = useInView({
+    threshold: isMobile ? 0.05 : 0.3,
+    triggerOnce: false,
+  })
+
+  const fullText = [
+    "Every Moment Has A Story",
+    "Worth Remembering"
+  ]
 
   const scrollToContact = () => {
     const element = document.querySelector('#contact')
@@ -76,7 +48,7 @@ const Hero = () => {
   const instagramHover = useCursorHover({ text: 'Follow' })
 
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" ref={ref} className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed"
@@ -91,7 +63,7 @@ const Hero = () => {
         {/* Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-8"
         >
@@ -102,34 +74,30 @@ const Hero = () => {
           />
         </motion.div>
 
-        {/* Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-center"
-        >
-          <div className="text-4xl md:text-7xl font-display font-bold mb-6 leading-tight min-h-[140px] md:min-h-[180px] max-w-6xl mx-auto">
-            {typedText.split('\n').map((line, lineIndex) => (
-              <div key={lineIndex} className="flex items-center justify-center">
-                <span className="typing-wrapper">{line}</span>
-                {lineIndex === typedText.split('\n').length - 1 && (
-                  <motion.span
-                    animate={{ opacity: showCursor ? 1 : 0 }}
-                    transition={{ duration: 0.1 }}
-                    className="cursor"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Title - Luxury Fade In */}
+        <div className="text-4xl md:text-7xl font-display font-bold mb-6 leading-tight max-w-6xl mx-auto">
+          {fullText.map((line, lineIndex) => (
+            <motion.div
+              key={lineIndex}
+              initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+              animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 20, filter: 'blur(10px)' }}
+              transition={{
+                duration: 1.2,
+                delay: inView ? 0.3 + (lineIndex * 0.4) : 0,
+                ease: [0.25, 0.1, 0.25, 1]
+              }}
+              className="flex items-center justify-center mb-2"
+            >
+              {line}
+            </motion.div>
+          ))}
+        </div>
 
         {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 1, delay: inView ? 1.1 : 0, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-lg md:text-xl secondary max-w-2xl mx-auto mb-12"
         >
           Saxby Films captures real-life moments and transforms them into
@@ -138,9 +106,9 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 1, delay: inView ? 1.3 : 0, ease: [0.25, 0.1, 0.25, 1] }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <button
@@ -165,8 +133,8 @@ const Hero = () => {
         {/* Social Link */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 1, delay: inView ? 1.5 : 0, ease: [0.25, 0.1, 0.25, 1] }}
           className="mt-12"
         >
           <a
@@ -184,8 +152,8 @@ const Hero = () => {
       {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 1, delay: inView ? 1.7 : 0, ease: [0.25, 0.1, 0.25, 1] }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <motion.div

@@ -543,6 +543,15 @@ html {
     pointer-events: none;
   }
 
+  /* reCAPTCHA styling to stand out against dark backgrounds */
+  #recaptcha-container {
+    padding: 12px;
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 8px;
+    display: inline-block;
+  }
+
   .contact-bg::after {
     content: '';
     position: absolute;

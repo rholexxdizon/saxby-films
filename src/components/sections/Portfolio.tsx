@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Clapperboard, Plane, Trophy, BookOpen, Film, Sparkles, Heart, Music } from 'lucide-react'
+import { Clapperboard, Sparkles, Heart, Film } from 'lucide-react'
 import PortfolioCard from '@components/ui/PortfolioCard'
 import AlbumCard from '@components/ui/AlbumCard'
 import GalleryModal from '@components/ui/GalleryModal'
@@ -26,16 +26,12 @@ const generateGalleryImages = (basePath: string, count: number): string[] => {
   return Array.from({ length: count }, (_, i) => getImageUrl(basePath, i + 1))
 }
 
-// Tag icon mapping
+// Tag icon mapping - wedding focused
 const tagIcons: Record<PortfolioTag, React.ComponentType<{ className?: string }>> = {
-  sde: Clapperboard,
-  drone: Plane,
-  sports: Trophy,
-  documentary: BookOpen,
-  bts: Film,
-  highlights: Sparkles,
-  'pre-wedding': Heart,
-  'music-video': Music,
+  'same-day-edit': Clapperboard,
+  'concept-film': Sparkles,
+  'wedding-reel': Film,
+  'proposal': Heart,
 }
 
 const Portfolio = () => {
@@ -100,230 +96,11 @@ const Portfolio = () => {
   }
 
   const portfolioItems: PortfolioItem[] = [
-    // EVENTS CATEGORY
-    {
-      id: 'olivia-rodrigo-bts',
-      title: 'Olivia Rodrigo - GUTS World Tour (Manila)',
-      category: 'events',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/c2f8q0wwYyE/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/c2f8q0wwYyE',
-      videoUrl: 'https://www.youtube.com/watch?v=c2f8q0wwYyE',
-      description: 'American Express helped Olivia Rodrigo make her dream of bringing the GUTS World Tour to the Philippines a reality. The sold-out Manila show was the largest crowd Olivia has ever played for!',
-      client: 'Olivia Rodrigo / American Express',
-      year: 2024,
-      tags: ['bts'],
-    },
-    {
-      id: 'rhodessa-ano-ba-talaga-tayo',
-      title: 'Rhodessa - Ano Ba Talaga Taya? (Official Music Video)',
-      category: 'videos',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/e8G1y4aASck/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/e8G1y4aASck',
-      videoUrl: 'https://www.youtube.com/watch?v=e8G1y4aASck',
-      description: 'The Official Music Video of "ano ba talaga tayo?" by Rhodessa',
-      client: 'Rhodessa',
-      year: 2024,
-      tags: ['music-video'],
-    },
-    {
-      id: 'rhodessa-kiss',
-      title: 'Rhodessa - Kiss (Official Music Video)',
-      category: 'videos',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/VqtK6Au0E3E/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/VqtK6Au0E3E',
-      videoUrl: 'https://www.youtube.com/watch?v=VqtK6Au0E3E',
-      description: 'The Official Music Video of "Kiss" by Rhodessa',
-      client: 'Rhodessa',
-      year: 2024,
-      tags: ['music-video'],
-    },
-    {
-      id: 'wilbert-ross-makaluma',
-      title: 'Makaluma - Wilbert Ross (Official Music Video)',
-      category: 'videos',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/_M1cupr5uvc/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/_M1cupr5uvc',
-      videoUrl: 'https://www.youtube.com/watch?v=_M1cupr5uvc',
-      description: 'The Official Music Video of "Makaluma" by Wilbert Ross',
-      client: 'Wilbert Ross',
-      year: 2024,
-      tags: ['music-video', 'highlights'],
-    },
-    {
-      id: 'smile-360-sde',
-      title: 'Smile 360 Dental Clinic Kick-off Party 2025 | SDE',
-      category: 'corporate',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/mwJXI8I22aE/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/mwJXI8I22aE',
-      videoUrl: 'https://www.youtube.com/watch?v=mwJXI8I22aE',
-      description: "Here's the Same-day-edit video of the unforgettable Kick-Off Party of Smile 360 Dental Clinic!",
-      client: 'Smile 360 Dental Clinic',
-      year: 2025,
-      tags: ['sde'],
-    },
-    {
-      id: 'rosas-drone-compilation',
-      title: 'ROSAS | Drone Compilation',
-      category: 'events',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/QeOmceQAKeg/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/QeOmceQAKeg',
-      videoUrl: 'https://www.youtube.com/watch?v=QeOmceQAKeg',
-      description: 'Aerial shots during Leni-Kiko campaign rallies.',
-      client: 'ROSAS Campaign',
-      year: 2022,
-      tags: ['drone', 'documentary'],
-    },
-    {
-      id: 'showreel-2025',
-      title: 'Showreel 2025 by Saxby Dizon',
-      category: 'videos',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/9mIYuZcJ6a4/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/9mIYuZcJ6a4',
-      videoUrl: 'https://www.youtube.com/watch?v=9mIYuZcJ6a4',
-      description: 'Wrapping up 2025 with this showreel. Grateful to all the studios and teams who trusted me and made these projects possible. On to bigger stories.',
-      client: 'Saxby Films',
-      year: 2025,
-      tags: ['highlights', 'documentary'],
-    },
-
-    // WEDDING ALBUMS
-    {
-      id: 'jerremae-bless-wedding-album',
-      title: 'Jerremae and Bless | Wedding Day',
-      category: 'weddings',
-      type: 'album',
-      thumbnail: getImageUrl('weddings/jerremae-bless/gallery', 1),
-      description: 'A beautiful wedding album capturing the special moments of Jerremae and Bless.',
-      client: 'Jerremae & Bless',
-      year: 2024,
-      tags: ['highlights', 'documentary'],
-      galleryImages: generateGalleryImages('weddings/jerremae-bless/gallery', 12),
-    },
-    {
-      id: 'alfred-sheila-wedding-album',
-      title: 'Alfred and Sheila | Wedding Day',
-      category: 'weddings',
-      type: 'album',
-      thumbnail: getImageUrl('weddings/alfred-sheila', 1),
-      description: 'A beautiful wedding album capturing the special moments of Alfred and Sheila.',
-      client: 'Alfred & Sheila',
-      year: 2024,
-      tags: ['highlights', 'documentary'],
-      galleryImages: generateGalleryImages('weddings/alfred-sheila', 12),
-    },
-    {
-      id: 'ronnan-carren-wedding-album',
-      title: 'Ronnan and Carren | Wedding Day',
-      category: 'weddings',
-      type: 'album',
-      thumbnail: getImageUrl('weddings/ronnan-carren/gallery', 1),
-      description: 'A beautiful wedding album capturing the special moments of Ronnan and Carren.',
-      client: 'Ronnan & Carren',
-      year: 2024,
-      tags: ['highlights', 'documentary'],
-      galleryImages: generateGalleryImages('weddings/ronnan-carren/gallery', 12),
-    },
-    {
-      id: 'gilbert-niescee-wedding-album',
-      title: 'Gilbert and Niescee | Wedding Day',
-      category: 'weddings',
-      type: 'album',
-      thumbnail: getImageUrl('weddings/gilbert-niescee', 1),
-      description: 'A beautiful wedding album capturing the special moments of Gilbert and Niescee.',
-      client: 'Gilbert & Niescee',
-      year: 2024,
-      tags: ['highlights', 'documentary'],
-      galleryImages: generateGalleryImages('weddings/gilbert-niescee', 12),
-    },
-
-    // PRE-WEDDING ALBUMS
-    {
-      id: 'sarah-jecson-prewedding-album',
-      title: 'Sarah & Jecson | Pre-Wedding Session',
-      category: 'weddings',
-      type: 'album',
-      thumbnail: getImageUrl('pre-weddings/sarah-jecson', 1),
-      description: 'Romantic pre-wedding session with Sarah & Jecson in stunning locations.',
-      client: 'Sarah & Jecson',
-      year: 2024,
-      tags: ['pre-wedding', 'documentary'],
-      galleryImages: generateGalleryImages('pre-weddings/sarah-jecson', 12),
-    },
-    {
-      id: 'alfred-sheila-prewedding-album',
-      title: 'Alfred and Sheila | Pre-Wedding Session',
-      category: 'weddings',
-      type: 'album',
-      thumbnail: getImageUrl('pre-weddings/alfred-sheila', 1),
-      description: 'Romantic pre-wedding session with Alfred and Sheila.',
-      client: 'Alfred & Sheila',
-      year: 2024,
-      tags: ['pre-wedding', 'documentary'],
-      galleryImages: generateGalleryImages('pre-weddings/alfred-sheila', 12),
-    },
-    {
-      id: 'mae-bernie-prewedding-album',
-      title: 'Mae and Bernie | Pre-Wedding Session',
-      category: 'weddings',
-      type: 'album',
-      thumbnail: getImageUrl('pre-weddings/mae-bernie', 1),
-      description: 'Romantic pre-wedding session with Mae and Bernie.',
-      client: 'Mae & Bernie',
-      year: 2024,
-      tags: ['pre-wedding', 'documentary'],
-      galleryImages: generateGalleryImages('pre-weddings/mae-bernie', 12),
-    },
-    {
-      id: 'ronnan-carren-prewedding-album',
-      title: 'Ronnan and Carren | Pre-Wedding Session',
-      category: 'weddings',
-      type: 'album',
-      thumbnail: getImageUrl('pre-weddings/ronnan-carren', 1),
-      description: 'Romantic pre-wedding session with Ronnan and Carren.',
-      client: 'Ronnan & Carren',
-      year: 2024,
-      tags: ['pre-wedding', 'documentary'],
-      galleryImages: generateGalleryImages('pre-weddings/ronnan-carren', 12),
-    },
-
-    // MUSIC VIDEO ALBUMS
-    {
-      id: 'rhodessa-music-video-album',
-      title: 'Rhodessa Music Video Production',
-      category: 'videos',
-      type: 'album',
-      thumbnail: getImageUrl('music-videos/rhodessa', 1),
-      description: 'Behind the scenes and production photos from Rhodessa music videos.',
-      client: 'Rhodessa',
-      year: 2024,
-      tags: ['music-video', 'bts'],
-      galleryImages: generateGalleryImages('music-videos/rhodessa', 12),
-    },
-    {
-      id: 'wilbert-ross-music-video-album',
-      title: 'Wilbert Ross Music Video Production',
-      category: 'videos',
-      type: 'album',
-      thumbnail: getImageUrl('music-videos/wilbert-ross', 1),
-      description: 'Behind the scenes and production photos from Wilbert Ross music video.',
-      client: 'Wilbert Ross',
-      year: 2024,
-      tags: ['music-video', 'bts'],
-      galleryImages: generateGalleryImages('music-videos/wilbert-ross', 12),
-    },
-
-    // NEW PORTFOLIO ITEMS
+    // PRE-WEDDING FILMS
     {
       id: 'jerremae-bless-prewedding-film',
       title: 'Jerremae & Bless Pre Wedding Film | 4K',
-      category: 'weddings',
+      category: 'pre-wedding-film',
       type: 'video',
       thumbnail: 'https://img.youtube.com/vi/-U8TeRhjEA4/maxresdefault.jpg',
       embedUrl: 'https://www.youtube.com/embed/-U8TeRhjEA4',
@@ -331,12 +108,12 @@ const Portfolio = () => {
       description: 'Jerremae & Bless Pre-Wedding Film',
       client: 'Jerremae & Bless',
       year: 2026,
-      tags: ['pre-wedding'],
+      tags: ['proposal'],
     },
     {
       id: 'ron-carren-prewedding-film',
       title: 'Ron & Carren Pre-Wedding Film | 4K',
-      category: 'weddings',
+      category: 'pre-wedding-film',
       type: 'video',
       thumbnail: 'https://img.youtube.com/vi/RFYXJcIgn3k/maxresdefault.jpg',
       embedUrl: 'https://www.youtube.com/embed/RFYXJcIgn3k',
@@ -344,25 +121,12 @@ const Portfolio = () => {
       description: 'Ron & Carren Pre-Wedding Film',
       client: 'Ron & Carren',
       year: 2026,
-      tags: ['pre-wedding'],
-    },
-    {
-      id: 'alfred-sheila-wedding-sde',
-      title: 'Alfred & Sheila Wedding SDE',
-      category: 'weddings',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/rSKfW6O2qUw/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/rSKfW6O2qUw',
-      videoUrl: 'https://www.youtube.com/watch?v=rSKfW6O2qUw',
-      description: 'The Wedding of Alfred & Sheila 💍',
-      client: 'Alfred & Sheila',
-      year: 2026,
-      tags: ['sde'],
+      tags: ['concept-film'],
     },
     {
       id: 'sheila-alfred-prewedding-film',
       title: 'Sheila & Alfred Pre Wedding Film | 4K',
-      category: 'weddings',
+      category: 'pre-wedding-film',
       type: 'video',
       thumbnail: 'https://img.youtube.com/vi/DA_eRRF8GcQ/maxresdefault.jpg',
       embedUrl: 'https://www.youtube.com/embed/DA_eRRF8GcQ',
@@ -370,25 +134,27 @@ const Portfolio = () => {
       description: 'Sheila & Alfred Pre-Wedding Film',
       client: 'Sheila & Alfred',
       year: 2026,
-      tags: ['pre-wedding'],
+      tags: ['proposal'],
     },
+
+    // WEDDING VIDEOS
     {
-      id: 'showreel-2024',
-      title: 'Showreel 2024 by Saxby Films',
-      category: 'videos',
+      id: 'alfred-sheila-wedding-sde',
+      title: 'Alfred & Sheila Wedding SDE',
+      category: 'wedding-video',
       type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/VHPJ7ZQr5AE/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/VHPJ7ZQr5AE',
-      videoUrl: 'https://www.youtube.com/watch?v=VHPJ7ZQr5AE',
-      description: 'Wrapping up 2024 with this showreel. Grateful to all the studios and teams who trusted us. Thank you!',
-      client: 'Saxby Films',
-      year: 2024,
-      tags: ['highlights'],
+      thumbnail: 'https://img.youtube.com/vi/rSKfW6O2qUw/maxresdefault.jpg',
+      embedUrl: 'https://www.youtube.com/embed/rSKfW6O2qUw',
+      videoUrl: 'https://www.youtube.com/watch?v=rSKfW6O2qUw',
+      description: 'The Wedding of Alfred & Sheila 💍',
+      client: 'Alfred & Sheila',
+      year: 2026,
+      tags: ['same-day-edit'],
     },
     {
       id: 'mae-bernie-wedding-sde',
       title: 'Mae & Bernie Wedding SDE',
-      category: 'weddings',
+      category: 'wedding-video',
       type: 'video',
       thumbnail: 'https://img.youtube.com/vi/DpMjAWEWWMA/maxresdefault.jpg',
       embedUrl: 'https://www.youtube.com/embed/DpMjAWEWWMA',
@@ -396,12 +162,12 @@ const Portfolio = () => {
       description: 'The Wedding of Mae & Bernie 💍',
       client: 'Mae & Bernie',
       year: 2024,
-      tags: ['sde'],
+      tags: ['same-day-edit'],
     },
     {
       id: 'sarah-jecson-wedding-sde',
       title: 'Sarah & Jecson Wedding SDE',
-      category: 'weddings',
+      category: 'wedding-video',
       type: 'video',
       thumbnail: 'https://img.youtube.com/vi/kWBlzXkpftI/maxresdefault.jpg',
       embedUrl: 'https://www.youtube.com/embed/kWBlzXkpftI',
@@ -409,88 +175,137 @@ const Portfolio = () => {
       description: 'Sarah & Jecson Wedding SDE',
       client: 'Sarah & Jecson',
       year: 2024,
-      tags: ['sde'],
+      tags: ['same-day-edit'],
     },
     {
-      id: 'lg-golf-tournament-sde',
-      title: 'LG Golf Tournament 2023 | SDE',
-      category: 'events',
+      id: 'sarah-jecson-wedding-sde',
+      title: 'Sarah & Jecson Wedding SDE',
+      category: 'wedding-video',
       type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/9Q_EwibfyWM/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/9Q_EwibfyWM',
-      videoUrl: 'https://www.youtube.com/watch?v=9Q_EwibfyWM',
-      description: 'LG Golf Tournament 2023 | SDE',
-      client: 'LG',
+      thumbnail: 'https://img.youtube.com/vi/kWBlzXkpftI/maxresdefault.jpg',
+      embedUrl: 'https://www.youtube.com/embed/kWBlzXkpftI',
+      videoUrl: 'https://www.youtube.com/watch?v=kWBlzXkpftI',
+      description: 'Sarah & Jecson Wedding SDE',
+      client: 'Sarah & Jecson',
       year: 2024,
-      tags: ['sde'],
+      tags: ['same-day-edit'],
+    },
+
+    // WEDDING PHOTOGRAPHS
+    {
+      id: 'jerremae-bless-wedding-album',
+      title: 'Jerremae and Bless | Wedding Day',
+      category: 'wedding-photo',
+      type: 'album',
+      thumbnail: getImageUrl('weddings/jerremae-bless/gallery', 1),
+      description: 'A beautiful wedding album capturing the special moments of Jerremae and Bless.',
+      client: 'Jerremae & Bless',
+      year: 2024,
+      tags: ['wedding-reel'],
+      galleryImages: generateGalleryImages('weddings/jerremae-bless/gallery', 12),
     },
     {
-      id: 'elyu-governance',
-      title: 'Elyu: Governance',
-      category: 'corporate',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/HZWDFyXHWoQ/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/HZWDFyXHWoQ',
-      videoUrl: 'https://www.youtube.com/watch?v=HZWDFyXHWoQ',
-      description: 'All about La Union Governance',
-      client: 'La Union Tourism',
-      year: 2022,
-      tags: ['documentary'],
+      id: 'alfred-sheila-wedding-album',
+      title: 'Alfred and Sheila | Wedding Day',
+      category: 'wedding-photo',
+      type: 'album',
+      thumbnail: getImageUrl('weddings/alfred-sheila', 1),
+      description: 'A beautiful wedding album capturing the special moments of Alfred and Sheila.',
+      client: 'Alfred & Sheila',
+      year: 2024,
+      tags: ['wedding-reel'],
+      galleryImages: generateGalleryImages('weddings/alfred-sheila', 12),
     },
     {
-      id: 'elyu-tourist-spot',
-      title: 'Elyu: Tourist Spot',
-      category: 'corporate',
-      type: 'video',
-      thumbnail: 'https://img.youtube.com/vi/lGFHN3M4kPM/maxresdefault.jpg',
-      embedUrl: 'https://www.youtube.com/embed/lGFHN3M4kPM',
-      videoUrl: 'https://www.youtube.com/watch?v=lGFHN3M4kPM',
-      description: 'All about La Union Tourist Spots',
-      client: 'La Union Tourism',
-      year: 2022,
-      tags: ['documentary'],
+      id: 'ronnan-carren-wedding-album',
+      title: 'Ronnan and Carren | Wedding Day',
+      category: 'wedding-photo',
+      type: 'album',
+      thumbnail: getImageUrl('weddings/ronnan-carren/gallery', 1),
+      description: 'A beautiful wedding album capturing the special moments of Ronnan and Carren.',
+      client: 'Ronnan & Carren',
+      year: 2024,
+      tags: ['concept-film'],
+      galleryImages: generateGalleryImages('weddings/ronnan-carren/gallery', 12),
+    },
+    {
+      id: 'gilbert-niescee-wedding-album',
+      title: 'Gilbert and Niescee | Wedding Day',
+      category: 'wedding-photo',
+      type: 'album',
+      thumbnail: getImageUrl('weddings/gilbert-niescee', 1),
+      description: 'A beautiful wedding album capturing the special moments of Gilbert and Niescee.',
+      client: 'Gilbert & Niescee',
+      year: 2024,
+      tags: ['wedding-reel'],
+      galleryImages: generateGalleryImages('weddings/gilbert-niescee', 12),
+    },
+
+    // PRE-WEDDING PHOTOGRAPHS
+    {
+      id: 'sarah-jecson-prewedding-album',
+      title: 'Sarah & Jecson | Pre-Wedding Session',
+      category: 'pre-wedding-film',
+      type: 'album',
+      thumbnail: getImageUrl('pre-weddings/sarah-jecson', 1),
+      description: 'Romantic pre-wedding session with Sarah & Jecson in stunning locations.',
+      client: 'Sarah & Jecson',
+      year: 2024,
+      tags: ['proposal'],
+      galleryImages: generateGalleryImages('pre-weddings/sarah-jecson', 12),
+    },
+    {
+      id: 'alfred-sheila-prewedding-album',
+      title: 'Alfred and Sheila | Pre-Wedding Session',
+      category: 'pre-wedding-film',
+      type: 'album',
+      thumbnail: getImageUrl('pre-weddings/alfred-sheila', 1),
+      description: 'Romantic pre-wedding session with Alfred and Sheila.',
+      client: 'Alfred & Sheila',
+      year: 2024,
+      tags: ['concept-film'],
+      galleryImages: generateGalleryImages('pre-weddings/alfred-sheila', 12),
+    },
+    {
+      id: 'mae-bernie-prewedding-album',
+      title: 'Mae and Bernie | Pre-Wedding Session',
+      category: 'pre-wedding-film',
+      type: 'album',
+      thumbnail: getImageUrl('pre-weddings/mae-bernie', 1),
+      description: 'Romantic pre-wedding session with Mae and Bernie.',
+      client: 'Mae & Bernie',
+      year: 2024,
+      tags: ['proposal'],
+      galleryImages: generateGalleryImages('pre-weddings/mae-bernie', 12),
+    },
+    {
+      id: 'ronnan-carren-prewedding-album',
+      title: 'Ronnan and Carren | Pre-Wedding Session',
+      category: 'pre-wedding-film',
+      type: 'album',
+      thumbnail: getImageUrl('pre-weddings/ronnan-carren', 1),
+      description: 'Romantic pre-wedding session with Ronnan and Carren.',
+      client: 'Ronnan & Carren',
+      year: 2024,
+      tags: ['concept-film'],
+      galleryImages: generateGalleryImages('pre-weddings/ronnan-carren', 12),
     },
   ]
 
   // Custom ordering for "All" filter
   const orderedItems = useMemo(() => {
     if (selectedCategory !== 'all') {
-      // Special ordering for weddings category - videos first, then albums
-      if (selectedCategory === 'weddings') {
-        const videos = portfolioItems.filter(item =>
-          item.category === 'weddings' && item.type === 'video'
-        )
-        const albums = portfolioItems.filter(item =>
-          item.category === 'weddings' && item.type === 'album'
-        )
-        // Order wedding videos: wedding video, pre-wedding, SDE, then others
-        const orderedVideos = videos.sort((a, b) => {
-          const priority = ['wedding', 'pre-wedding', 'sde']
-          const aPriority = priority.findIndex(p =>
-            a.tags?.includes(p as PortfolioTag)
-          )
-          const bPriority = priority.findIndex(p =>
-            b.tags?.includes(p as PortfolioTag)
-          )
-          if (aPriority === -1 && bPriority === -1) return 0
-          if (aPriority === -1) return 1
-          if (bPriority === -1) return -1
-          return aPriority - bPriority
-        })
-        return [...orderedVideos, ...albums]
-      }
-
       return portfolioItems
     }
 
     // Define priority order for "All" filter
     const priorityIds = [
-      'jerremae-bless-prewedding-film',         // 1. wedding video
-      'sarah-jecson-wedding-sde',               // 2. wedding SDE
-      'alfred-sheila-wedding-sde',             // 3. wedding SDE
-      'olivia-rodrigo-bts',                    // 4. olivia rodrigo bts
-      'wilbert-ross-makaluma',                 // 5. makaluma music video
-      'smile-360-sde',                         // 6. sde smile 360
+      'jerremae-bless-prewedding-film',         // Pre-wedding film
+      'ron-carren-prewedding-film',             // Pre-wedding film
+      'alfred-sheila-wedding-sde',             // Wedding SDE
+      'mae-bernie-wedding-sde',                // Wedding SDE
+      'sarah-jecson-wedding-sde',              // Wedding SDE
+      'jerremae-bless-wedding-album',          // Wedding album
     ]
 
     // Separate items into priority and remaining
@@ -516,12 +331,7 @@ const Portfolio = () => {
 
     // Level 1: Filter by main category
     if (selectedCategory !== 'all') {
-      // Special handling for 'photos' category - show all album items
-      if (selectedCategory === 'photos') {
-        results = results.filter(item => item.type === 'album')
-      } else {
-        results = results.filter(item => item.category === selectedCategory)
-      }
+      results = results.filter(item => item.category === selectedCategory)
     }
 
     // Level 2: Filter by tags (multi-select OR logic)
@@ -529,15 +339,6 @@ const Portfolio = () => {
       results = results.filter(item =>
         item.tags && selectedTags.some(tag => item.tags!.includes(tag))
       )
-
-      // Special ordering for SDE tag - put smile-360-sde at the end
-      if (selectedTags.includes('sde') && selectedTags.length === 1) {
-        const smile360 = results.find(item => item.id === 'smile-360-sde')
-        const others = results.filter(item => item.id !== 'smile-360-sde')
-        if (smile360) {
-          results = [...others, smile360]
-        }
-      }
     }
 
     return results
@@ -561,11 +362,9 @@ const Portfolio = () => {
 
   const categories = [
     { id: 'all', label: 'All' },
-    { id: 'photos', label: 'Photos' },
-    { id: 'videos', label: 'Videos' },
-    { id: 'weddings', label: 'Weddings' },
-    { id: 'events', label: 'Events' },
-    { id: 'corporate', label: 'Corporate' },
+    { id: 'wedding-video', label: 'Wedding Video' },
+    { id: 'wedding-photo', label: 'Wedding Photo' },
+    { id: 'pre-wedding-film', label: 'Pre-wedding Film' },
   ]
 
   const handleLoadMore = () => {

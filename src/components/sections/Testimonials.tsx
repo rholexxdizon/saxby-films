@@ -18,7 +18,7 @@ const Testimonials = () => {
 
   const [ref, inView] = useInView({
     threshold: isMobile ? 0.05 : 0.3,
-    triggerOnce: true,
+    triggerOnce: false,
   })
 
   // Real client testimonials

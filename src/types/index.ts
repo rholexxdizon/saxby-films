@@ -1,6 +1,6 @@
-export type PortfolioTag = 'sde' | 'drone' | 'sports' | 'documentary' | 'bts' | 'highlights' | 'pre-wedding' | 'music-video'
+export type PortfolioTag = 'same-day-edit' | 'concept-film' | 'wedding-reel' | 'proposal'
 
-export type PortfolioCategory = 'all' | 'photos' | 'videos' | 'weddings' | 'events' | 'corporate'
+export type PortfolioCategory = 'all' | 'wedding-video' | 'wedding-photo' | 'pre-wedding-film'
 
 export interface PortfolioItem {
   id: string

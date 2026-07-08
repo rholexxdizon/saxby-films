@@ -6,13 +6,19 @@ import { useCursorHover } from '@hooks/useCursorHover'
 
 interface NavigationProps {
   onOpenChatbot?: () => void
+  isMobileMenuOpen?: boolean
+  setIsMobileMenuOpen?: (isOpen: boolean) => void
 }
 
-const Navigation = ({ onOpenChatbot }: NavigationProps = {}) => {
+const Navigation = ({ onOpenChatbot, isMobileMenuOpen: controlledIsOpen, setIsMobileMenuOpen: controlledSetOpen }: NavigationProps = {}) => {
+  // Use controlled state if provided, otherwise use local state
+  const [localIsOpen, setLocalIsOpen] = useState(false)
+  const isMobileMenuOpen = controlledIsOpen !== undefined ? controlledIsOpen : localIsOpen
+  const setIsMobileMenuOpen = controlledSetOpen || setLocalIsOpen
+
   // We'll use onOpenChatbot when needed
   void onOpenChatbot;
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,12 +54,12 @@ const Navigation = ({ onOpenChatbot }: NavigationProps = {}) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[10000] transition-all duration-300 ${
         isScrolled ? 'cinematic-card py-4' : 'bg-transparent py-6'
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-row-reverse lg:flex-row">
           {/* Logo */}
           <a
             href="#hero"
@@ -112,43 +118,6 @@ const Navigation = ({ onOpenChatbot }: NavigationProps = {}) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: '100vh' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden fixed inset-0 top-[72px] bg-background z-40"
-          >
-            <div className="flex flex-col items-center justify-center h-full gap-8">
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-2xl uppercase tracking-wider hover:text-accent transition-colors"
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-              <motion.a
-                href="#contact"
-                onClick={(e) => handleNavClick(e, '#contact')}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="px-8 py-4 gold-gradient text-white rounded-full font-medium text-lg"
-              >
-                Book a Session
-              </motion.a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </nav>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 import { sendContactEmail } from '../../lib/email'
@@ -6,6 +6,25 @@ import { validateFormData, sanitizeFormData, checkRateLimit } from '../../lib/va
 import { useCursorHover } from '@hooks/useCursorHover'
 import CustomDropdown from './CustomDropdown'
 import type { ContactFormData } from '../../types'
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void
+      execute: (siteKey: string, options: { action: string }) => Promise<string>
+      getResponse: (widgetId?: number) => string
+      reset: (widgetId?: number) => void
+      render: (container: string | HTMLElement, options: {
+        sitekey: string
+        theme?: 'light' | 'dark'
+        size?: 'normal' | 'compact'
+        callback?: (token: string) => void
+        'expired-callback'?: () => void
+        'error-callback'?: () => void
+      }) => number
+    }
+  }
+}
 
 const ContactForm = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -26,6 +45,7 @@ const ContactForm = () => {
     message: string
   }>({ type: null, message: '' })
   const [lastSubmitTime, setLastSubmitTime] = useState<number | null>(null)
+  const [recaptchaWidgetId, setRecaptchaWidgetId] = useState<number | null>(null)
 
   // Cursor hover effect
   const submitHover = useCursorHover({ text: 'Send' })
@@ -38,6 +58,64 @@ const ContactForm = () => {
       setErrors([])
     }
   }
+
+  // Initialize reCAPTCHA widget explicitly
+  useEffect(() => {
+    const initializeRecaptcha = () => {
+      const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
+      if (!siteKey) {
+        console.error('reCAPTCHA site key is missing')
+        return
+      }
+
+      if (window.grecaptcha) {
+        const container = document.getElementById('recaptcha-container')
+        if (!container) {
+          console.error('reCAPTCHA container not found')
+          return
+        }
+
+        try {
+          const widgetId = window.grecaptcha.render(container, {
+            sitekey: siteKey,
+            theme: 'dark',
+            callback: (token: string) => {
+              setFormData((prev) => ({ ...prev, captcha: token }))
+            },
+            'expired-callback': () => {
+              setFormData((prev) => ({ ...prev, captcha: '' }))
+            },
+            'error-callback': () => {
+              setSubmitStatus({
+                type: 'error',
+                message: 'reCAPTCHA verification failed. Please try again.'
+              })
+            }
+          })
+          setRecaptchaWidgetId(widgetId)
+        } catch (error) {
+          console.error('reCAPTCHA render error:', error)
+        }
+      } else {
+        console.error('reCAPTCHA not loaded')
+      }
+    }
+
+    // Wait for reCAPTCHA to be ready
+    if (window.grecaptcha) {
+      initializeRecaptcha()
+    } else {
+      // If reCAPTCHA isn't loaded yet, wait for it
+      const checkRecaptcha = setInterval(() => {
+        if (window.grecaptcha) {
+          clearInterval(checkRecaptcha)
+          initializeRecaptcha()
+        }
+      }, 100)
+
+      return () => clearInterval(checkRecaptcha)
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -63,15 +141,36 @@ const ContactForm = () => {
       return
     }
 
-    // Sanitize form data
-    const sanitizedData = sanitizeFormData(formData)
+    // Verify reCAPTCHA
+    const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
+    if (!recaptchaSiteKey) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'reCAPTCHA is not configured. Please contact us directly.'
+      })
+      return
+    }
+
+    // Get reCAPTCHA response
+    const captchaToken = recaptchaWidgetId !== null
+      ? window.grecaptcha.getResponse(recaptchaWidgetId)
+      : null
+
+    if (!captchaToken) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please complete the reCAPTCHA verification before submitting.'
+      })
+      return
+    }
+
+    // Sanitize form data with captcha token
+    const sanitizedData = sanitizeFormData({ ...formData, captcha: captchaToken })
 
     setIsSubmitting(true)
     setSubmitStatus({ type: null, message: '' })
 
     try {
-      // In a real implementation, you would verify CAPTCHA here
-      // For now, we'll proceed with the email sending
       const result = await sendContactEmail(sanitizedData)
 
       setSubmitStatus({
@@ -92,6 +191,10 @@ const ContactForm = () => {
           message: '',
           captcha: '',
         })
+        // Reset reCAPTCHA
+        if (recaptchaWidgetId !== null && window.grecaptcha) {
+          window.grecaptcha.reset(recaptchaWidgetId)
+        }
       }
     } catch (error) {
       setSubmitStatus({
@@ -164,9 +267,12 @@ const ContactForm = () => {
         {/* Event Type & Date */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <CustomDropdown
-            label="Event Type"
+            label="Event Type *"
             value={formData.eventType}
-            onChange={(value) => setFormData({ ...formData, eventType: value })}
+            onChange={(value) => {
+              setFormData({ ...formData, eventType: value })
+              if (errors.length > 0) setErrors([])
+            }}
             options={[
               'Wedding Photography',
               'Wedding Videography',
@@ -203,7 +309,10 @@ const ContactForm = () => {
         <CustomDropdown
           label="Budget (Optional)"
           value={formData.budget || ''}
-          onChange={(value) => setFormData({ ...formData, budget: value })}
+          onChange={(value) => {
+            setFormData({ ...formData, budget: value })
+            if (errors.length > 0) setErrors([])
+          }}
           options={[
             '₱50,000 - ₱100,000',
             '₱100,000 - ₱150,000',
@@ -230,6 +339,11 @@ const ContactForm = () => {
             className="w-full px-4 py-3 surface-secondary border border-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors resize-none placeholder:text-tertiary"
             placeholder="Tell us about your event, what you're looking for, and any specific requirements..."
           />
+        </div>
+
+        {/* reCAPTCHA */}
+        <div className="flex justify-start">
+          <div id="recaptcha-container"></div>
         </div>
 
         {/* Status Messages */}

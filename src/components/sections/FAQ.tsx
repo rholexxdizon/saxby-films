@@ -18,7 +18,7 @@ const FAQ = () => {
 
   const [ref, inView] = useInView({
     threshold: isMobile ? 0.05 : 0.3,
-    triggerOnce: true,
+    triggerOnce: false,
   })
 
   const [openIndex, setOpenIndex] = useState<number | null>(null)

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-const MasonryGallery = () => {
+const StoryGallery = () => {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
@@ -13,30 +13,30 @@ const MasonryGallery = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Wedding and pre-wedding images from different albums
+  // Original branding images from assets/branding/about folder
   const images = [
     {
       id: 1,
-      src: new URL('../../assets/portfolio/weddings/alfred-sheila/image-1.jpg', import.meta.url).href,
-      alt: 'Alfred & Sheila Wedding',
+      src: new URL('../../assets/branding/about/image-1.jpg', import.meta.url).href,
+      alt: 'Saxby Films Journey',
       height: 'h-64',
     },
     {
       id: 2,
-      src: new URL('../../assets/portfolio/pre-weddings/alfred-sheila/image-1.jpg', import.meta.url).href,
-      alt: 'Alfred & Sheila Pre-Wedding',
+      src: new URL('../../assets/branding/about/image-2.jpg', import.meta.url).href,
+      alt: 'Behind the Scenes',
       height: 'h-80',
     },
     {
       id: 3,
-      src: new URL('../../assets/portfolio/weddings/gilbert-niescee/image-1.jpg', import.meta.url).href,
-      alt: 'Gilbert & Niescee Wedding',
+      src: new URL('../../assets/branding/about/image-3.jpg', import.meta.url).href,
+      alt: 'Filming in Action',
       height: 'h-64',
     },
     {
       id: 4,
-      src: new URL('../../assets/portfolio/weddings/ronnan-carren/gallery/image-1.jpg', import.meta.url).href,
-      alt: 'Ronnan & Carren Wedding',
+      src: new URL('../../assets/branding/about/image-4.jpg', import.meta.url).href,
+      alt: 'Team Collaboration',
       height: 'h-96',
     },
   ]
@@ -46,7 +46,7 @@ const MasonryGallery = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
       },
     },
   }
@@ -57,7 +57,7 @@ const MasonryGallery = () => {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
       },
     },
   }
@@ -97,4 +97,4 @@ const MasonryGallery = () => {
   )
 }
 
-export default MasonryGallery
+export default StoryGallery

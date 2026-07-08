@@ -12,16 +12,27 @@ interface AlbumCardProps {
 const AlbumCard = ({ item, index, onOpen }: AlbumCardProps) => {
   const [imageLoaded, setImageLoaded] = useState(false)
 
+  const card = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        delay: index * 0.1,
+      },
+    },
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className="group relative cursor-pointer"
+      variants={card}
+      whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
+      className="cinematic-card rounded-2xl overflow-hidden group cursor-pointer"
       onClick={() => onOpen(item)}
-      whileHover={{ y: -8 }}
     >
-      <div className="aspect-[4/3] rounded-2xl overflow-hidden cinematic-card">
+      {/* Thumbnail Container */}
+      <div className="relative aspect-[4/3] overflow-hidden surface-secondary">
         <img
           src={item.thumbnail}
           alt={item.title}
@@ -33,23 +44,33 @@ const AlbumCard = ({ item, index, onOpen }: AlbumCardProps) => {
         {!imageLoaded && (
           <div className="absolute inset-0 bg-surface-secondary animate-pulse" />
         )}
-      </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+        {/* Gradient Overlay - always visible with more opacity on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
 
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-        <div className="flex items-center gap-2 text-accent mb-2">
-          <Album className="w-4 h-4" />
-          <span className="text-xs uppercase tracking-wider">
-            {item.type === 'album' ? `${item.galleryImages?.length || 0} Photos` : 'Video'}
+        {/* Album Icon & Badge */}
+        <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 bg-accent/90 backdrop-blur-sm rounded-full">
+          <Album className="w-4 h-4 text-white" />
+          <span className="text-xs uppercase tracking-wider font-medium text-white">
+            {item.galleryImages?.length || 0} Photos
           </span>
         </div>
-        <h3 className="text-white font-display font-bold text-lg mb-1">
+      </div>
+
+      {/* Card Content - Below image */}
+      <div className="p-6">
+        <h3 className="text-lg font-display font-semibold mb-2">
           {item.title}
         </h3>
-        <p className="text-white/70 text-sm line-clamp-2">
+        <p className="text-secondary text-sm mb-3 line-clamp-2">
           {item.description}
         </p>
+        {item.client && (
+          <div className="flex items-center justify-between text-xs text-secondary">
+            <span>{item.client}</span>
+            {item.year && <span>{item.year}</span>}
+          </div>
+        )}
       </div>
     </motion.div>
   )

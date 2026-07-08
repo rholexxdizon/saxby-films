@@ -7,7 +7,8 @@ import {
   Building,
   Plane,
   Zap,
-  Users
+  Users,
+  ExternalLink
 } from 'lucide-react'
 
 const iconMap = {
@@ -27,6 +28,8 @@ interface ServiceCardProps {
     title: string
     description: string
     icon: keyof typeof iconMap
+    externalLink?: string
+    isExternal?: boolean
   }
   index: number
 }
@@ -46,12 +49,8 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
     },
   }
 
-  return (
-    <motion.div
-      variants={card}
-      whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
-      className="cinematic-card rounded-2xl p-6 group"
-    >
+  const CardContent = () => (
+    <>
       {/* Icon */}
       <motion.div
         whileHover={{ rotate: 360, scale: 1.1, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } }}
@@ -61,14 +60,51 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       </motion.div>
 
       {/* Title */}
-      <h3 className="text-xl font-display font-semibold mb-3">
-        {service.title}
-      </h3>
+      <div className="flex items-center gap-2 mb-3">
+        <h3 className="text-xl font-display font-semibold">
+          {service.title}
+        </h3>
+        {service.isExternal && (
+          <ExternalLink className="w-4 h-4 text-accent" />
+        )}
+      </div>
 
       {/* Description */}
       <p className="text-secondary text-sm leading-relaxed">
         {service.description}
       </p>
+
+      {/* External Link Badge */}
+      {service.isExternal && (
+        <div className="mt-3 text-xs text-accent/80 uppercase tracking-wider">
+          Provided by Yellow Mango Studios
+        </div>
+      )}
+    </>
+  )
+
+  if (service.isExternal && service.externalLink) {
+    return (
+      <motion.a
+        href={service.externalLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        variants={card}
+        whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
+        className="cinematic-card rounded-2xl p-6 group block cursor-pointer"
+      >
+        <CardContent />
+      </motion.a>
+    )
+  }
+
+  return (
+    <motion.div
+      variants={card}
+      whileHover={{ y: -8, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
+      className="cinematic-card rounded-2xl p-6 group"
+    >
+      <CardContent />
     </motion.div>
   )
 }

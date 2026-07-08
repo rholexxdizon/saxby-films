@@ -19,7 +19,7 @@ const Services = () => {
 
   const [ref, inView] = useInView({
     threshold: isMobile ? 0.05 : 0.3,
-    triggerOnce: true,
+    triggerOnce: false,
   })
 
   const scrollToContact = () => {
@@ -34,16 +34,10 @@ const Services = () => {
 
   const services = [
     {
-      id: 'wedding-photography',
-      title: 'Wedding Photography',
-      description: 'Capturing the magic and emotion of your special day with stunning, timeless photographs.',
+      id: 'wedding-photo-video',
+      title: 'Wedding Photography & Videography',
+      description: 'Complete wedding coverage capturing both stunning photographs and cinematic films of your special day.',
       icon: 'Camera' as const
-    },
-    {
-      id: 'wedding-videography',
-      title: 'Wedding Videography',
-      description: 'Cinematic wedding films that tell your love story with artistic flair and emotional depth.',
-      icon: 'Video' as const
     },
     {
       id: 'pre-wedding',
@@ -52,34 +46,18 @@ const Services = () => {
       icon: 'Heart' as const
     },
     {
-      id: 'debut-coverage',
-      title: 'Debut Coverage',
-      description: 'Comprehensive coverage of debut events, capturing every precious moment and milestone.',
-      icon: 'Sparkles' as const
-    },
-    {
-      id: 'event-photography',
-      title: 'Event Photography',
-      description: 'Professional event photography for corporate gatherings, celebrations, and special occasions.',
-      icon: 'Camera' as const
-    },
-    {
-      id: 'event-videography',
-      title: 'Event Videography',
-      description: 'Dynamic event videography that brings your occasions to life with professional quality.',
+      id: 'event-coverage',
+      title: 'Event Coverage',
+      description: 'Comprehensive event coverage with both photography and videography for all types of occasions and celebrations.',
       icon: 'Video' as const
     },
     {
       id: 'corporate-events',
       title: 'Corporate Events',
-      description: 'Premium coverage for corporate events, conferences, and business functions with polished presentation.',
-      icon: 'Building' as const
-    },
-    {
-      id: 'drone-coverage',
-      title: 'Drone Coverage',
-      description: 'Breathtaking aerial footage and photography using state-of-the-art drone technology.',
-      icon: 'Plane' as const
+      description: 'Premium coverage for corporate events, conferences, and business functions. Provided by our partner studio.',
+      icon: 'Building' as const,
+      externalLink: 'https://yellowmangostudios.com',
+      isExternal: true
     }
   ]
 
