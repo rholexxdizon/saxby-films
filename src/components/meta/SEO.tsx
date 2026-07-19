@@ -41,7 +41,7 @@ const SEO = ({
     url: siteUrl,
     logo: `${siteUrl}/saxby-films-logo-2.jpg`,
     image: fullImageUrl,
-    telephone: '+63 912 345 6789',
+    telephone: '+63 915 167 6819',
     email: 'info@saxbyfilms.com',
     address: {
       '@type': 'PostalAddress',

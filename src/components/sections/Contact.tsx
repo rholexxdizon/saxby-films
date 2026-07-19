@@ -39,8 +39,8 @@ const Contact = () => {
     {
       icon: Phone,
       label: 'Phone',
-      value: '+63 912 345 6789',
-      link: 'tel:+639123456789',
+      value: '+63 9151 676 819',
+      link: 'tel:+639151676819',
     },
     {
       icon: MapPin,
