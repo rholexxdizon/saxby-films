@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Mail, Phone, MapPin, Instagram, Facebook, MessageCircle } from 'lucide-react'
-import ContactForm from '@components/ui/ContactForm'
+// ponytail: ContactForm temporarily disabled, will be restored when email service is chosen
+// import ContactForm from '@components/ui/ContactForm'
 import { useEffect, useState } from 'react'
 import { useCursorHover } from '@hooks/useCursorHover'
 
