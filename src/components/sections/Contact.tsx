@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Mail, Phone, MapPin, Instagram, Facebook, MessageCircle } from 'lucide-react'
 import ContactForm from '@components/ui/ContactForm'
-import { initializeEmailJS } from '@lib/email'
 import { useEffect, useState } from 'react'
 import { useCursorHover } from '@hooks/useCursorHover'
 
@@ -10,7 +9,6 @@ const Contact = () => {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    initializeEmailJS()
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
@@ -84,13 +82,13 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-          {/* Left: Contact Information */}
+        <div className="max-w-2xl mx-auto">
+          {/* Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                        className="space-y-8"
+                      className="space-y-8"
           >
             {/* Contact Details */}
             <div className="space-y-6">
@@ -197,15 +195,6 @@ const Contact = () => {
                 Message on Facebook
               </a>
             </motion.div>
-          </motion.div>
-
-          {/* Right: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                      >
-            <ContactForm />
           </motion.div>
         </div>
       </div>

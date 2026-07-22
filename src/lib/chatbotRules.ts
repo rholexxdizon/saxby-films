@@ -7,8 +7,8 @@ export interface ChatRule {
 export const chatRules: ChatRule[] = [
   {
     keywords: ['price', 'cost', 'rate', 'quote', 'pricing', 'how much', 'budget', 'affordable', 'cheap', 'expensive'],
-    response: 'For detailed pricing information and personalized quotes, please use our contact form to request a quote. Our packages are flexible and can be customized based on your specific needs and requirements.',
-    suggestions: ['Request a Quote', 'Contact Us']
+    response: 'For detailed pricing information and personalized quotes, please message us directly at info@saxbyfilms.com or through our Facebook page. Our packages are flexible and can be customized based on your specific needs and requirements.',
+    suggestions: ['Request Quote', 'Contact Us']
   },
   {
     keywords: ['service', 'offer', 'provide', 'what do you do', 'specialize', 'package'],
@@ -42,8 +42,8 @@ export const chatRules: ChatRule[] = [
   },
   {
     keywords: ['book', 'reserve', 'schedule', 'how to book', 'availability', 'date'],
-    response: 'To book our services, please fill out the contact form with your event details. We recommend booking as early as possible, especially for weddings during peak season (6-12 months advance notice). We\'ll get back to you within 24-48 hours to discuss availability.',
-    suggestions: ['Contact Form', 'Check Availability']
+    response: 'To book our services, please message us directly through:\n\n📧 Email: info@saxbyfilms.com\n📘 Facebook: Saxby Films\n\nWe recommend booking as early as possible, especially for weddings during peak season (6-12 months advance notice). We\'ll respond within 24-48 hours to discuss availability.',
+    suggestions: ['Send Email', 'Message on Facebook']
   },
   {
     keywords: ['delivery', 'turnaround', 'how long', 'wait', 'processing time', 'when will i get'],
@@ -77,12 +77,27 @@ export const chatRules: ChatRule[] = [
   },
   {
     keywords: ['goodbye', 'bye', 'see you', 'take care'],
-    response: 'Thank you for chatting with us! We hope to work with you soon. Feel free to reach out anytime through our contact form or social media. Have a wonderful day! ✨',
-    suggestions: ['Contact Us']
+    response: 'Thank you for chatting with us! We hope to work with you soon. Feel free to reach out anytime via email or Facebook. Have a wonderful day! ✨',
+    suggestions: ['Send Email', 'Facebook']
+  },
+  {
+    keywords: ['contact', 'reach', 'email', 'phone', 'call', 'social media', 'facebook', 'instagram', 'get in touch', 'contact info'],
+    response: `Here's how to reach us:
+
+📧 Email: info@saxbyfilms.com
+📞 Phone: +63 9151 676 819
+📍 Location: Cavite, Philippines
+
+📸 Social Media:
+• Instagram: @saxbyfilms
+• Facebook: Saxby Films
+
+We typically respond within 24-48 hours!`,
+    suggestions: ['Send Email', 'Facebook', 'Instagram']
   }
 ]
 
-export const defaultResponse = 'I may not have complete information for that inquiry. For personalized assistance regarding your specific needs, please contact Saxby Films directly through our contact form or Instagram.'
+export const defaultResponse = 'I may not have complete information for that inquiry. For personalized assistance regarding your specific needs, please contact Saxby Films directly via email (info@saxbyfilms.com) or Instagram (@saxbyfilms).'
 
 export const getBotResponse = (userMessage: string): { response: string; suggestions: string[] } => {
   const lowerMessage = userMessage.toLowerCase()
@@ -100,7 +115,7 @@ export const getBotResponse = (userMessage: string): { response: string; suggest
   // No match found - return default response
   return {
     response: defaultResponse,
-    suggestions: ['Contact Form', 'Instagram', 'Services']
+    suggestions: ['Send Email', 'Instagram', 'Services']
   }
 }
 
